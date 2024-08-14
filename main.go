@@ -21,10 +21,10 @@ func main() {
 	var xInt64 int64 = 64
 	var xFloat32 float32 = 100.56
 
-	var _xInt = createOurCustomType(xInt)
-	var _xInt32 = createOurCustomType(xInt32)
-	var _xInt64 = createOurCustomType(xInt64)
-	var _xFloat32 = createOurCustomType(xFloat32)
+	var _xInt = toFloat64(xInt)
+	var _xInt32 = toFloat64(xInt32)
+	var _xInt64 = toFloat64(xInt64)
+	var _xFloat32 = toFloat64(xFloat32)
 
 	// let's print out the data types of all the variables above
 	fmt.Printf("xInt     : [%v],\t _xInt\t\t: [%v]\n", reflect.TypeOf(xInt), reflect.TypeOf(_xInt))
@@ -36,7 +36,7 @@ func main() {
 	// to try, uncomment the following 2 lines.
 
 	// var xStr string = "Monday"
-	// var _xStr = createOurCustomType(xStr)
+	// var _xStr = toFloat64(xStr)
 
 }
 
@@ -57,14 +57,14 @@ type NumericDataTypes interface {
 	~int | ~int32 | ~int64 | ~float32
 }
 
-// createOurCustomType shows us how to declare a generic
+// toFloat64 shows us how to declare a generic
 // 2. We declare the function that will accept the input
 // format is
 // func functionName[N InterfaceWithTheType](x N)
 // here, N is just a variable representing the NumericDataTypes interface
 // therefore, when we pass x of type N,
 // we're basically saying x can be of any data type as long as its declared in the NumericDataTypes interface
-func createOurCustomType[N NumericDataTypes](x N) float64 {
+func toFloat64[N NumericDataTypes](x N) float64 {
 	// this is a simple case, because we already know that the inputs will be numeric
 	// and our custom type is also numeric, we can do a direct casting.
 	return float64(x)
